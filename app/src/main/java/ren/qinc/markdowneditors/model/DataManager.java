@@ -106,18 +106,10 @@ public class DataManager {
     public Observable<List<FileBean>> getFileListData(File currentFolder, String key) {
         File[] files = null;
         if (Check.isEmpty(key))//默认，文件夹和文件
-            files = currentFolder
-                    .listFiles(file -> file.isDirectory() ||
-                            file.getName().endsWith(".md") ||
-                            file.getName().endsWith(".markdown") ||
-                            file.getName().endsWith(".mdown"));
+            files = currentFolder.listFiles();
         else //搜索
             files = currentFolder
-                    .listFiles(file -> file.getName().contains(key) &&
-                            (
-                                    file.getName().endsWith(".md") ||
-                                            file.getName().endsWith(".markdown") ||
-                                            file.getName().endsWith(".mdown")));//只显示md和文件夹
+            .listFiles(file -> file.getName().contains(key));
 
 
         if (files == null)
