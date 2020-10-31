@@ -155,7 +155,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
         if (newName.equals(name)) return true;
 
             //重命名
-            File oldFile = getMDFile();
+            File oldFile = getFile();
             File newPath = new File(filePath, newName);
             if (oldFile.getAbsolutePath().equals(newPath.getAbsolutePath())) return true;
 
