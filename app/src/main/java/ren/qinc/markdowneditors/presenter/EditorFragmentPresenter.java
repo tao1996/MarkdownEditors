@@ -52,7 +52,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
      * 加载当前文件
      */
     public void loadFile() {
-        mCompositeSubscription.add(mDataManager.readFile(getMDFile())
+        mCompositeSubscription.add(mDataManager.readFile(getFile())
                 .subscribe(content -> {
                     if (getMvpView() == null) return;
                     getMvpView().onReadSuccess(fileName, content);
@@ -63,7 +63,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
     }
 
     @NonNull
-    public File getMDFile() {
+    public File getFile() {
         return new File(filePath, fileName);
     }
 
@@ -118,7 +118,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
             //新建文件
             if (isCreateFile) {
                 //新创建文件，但是文件已经存在了
-                File file = new File(filePath, name + ".md");
+                File file = new File(filePath, name);
                 if (!file.isDirectory() && file.exists()) {
                     callFailure(-1, "文件已经存在", IEditorFragmentView.CALL_SAVE);
                     return;
@@ -128,12 +128,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
         }
 
 
-        if (!fileName.endsWith(".md") &&
-                !fileName.endsWith(".markdown") &&
-                !fileName.endsWith(".mdown")) {
-            fileName = fileName + ".md";
-        }
-        mDataManager.saveFile(getMDFile(), content).subscribe(success -> {
+        mDataManager.saveFile(getFile(), content).subscribe(success -> {
             if (success) {
                 isCreateFile = false;
                 textChanged = false;
@@ -156,18 +151,12 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
     }
 
     private boolean rename(String newName) {
-
-        int end = fileName.lastIndexOf(".");
-        String name = fileName.substring(0, end);
+        String name = fileName;
         if (newName.equals(name)) return true;
 
-        String suffix = fileName.substring(end, fileName.length());
-        if (suffix.endsWith(".md") ||
-                suffix.endsWith(".markdown") ||
-                suffix.endsWith(".mdown")) {
             //重命名
             File oldFile = getMDFile();
-            File newPath = new File(filePath, newName + suffix);
+            File newPath = new File(filePath, newName);
             if (oldFile.getAbsolutePath().equals(newPath.getAbsolutePath())) return true;
 
             fileName = newPath.getName();
