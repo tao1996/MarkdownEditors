@@ -293,7 +293,7 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
 
     private void shareMD() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mPresenter.getMDFile()));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mPresenter.getFile()));
         shareIntent.setType("*/*");
 
 //        startActivity(Intent.createChooser(share,"Share Image"));
