@@ -166,8 +166,6 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
             boolean b = oldFile.renameTo(newPath);
             return b;
         }
-        return false;
-    }
 
     public boolean isSave() {
         return !textChanged;
