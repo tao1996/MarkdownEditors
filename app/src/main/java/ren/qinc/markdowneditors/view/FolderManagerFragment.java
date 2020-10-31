@@ -566,13 +566,6 @@ public class FolderManagerFragment extends BaseRefreshFragment implements IFolde
         textInputLayout.setHint("请输入" + (selectBean.isDirectory ? "文件夹名" : "文件名"));
         rootView.findViewById(R.id.sure).setOnClickListener(v -> {
             String result = text.getText().toString().trim();
-            if (!selectBean.isDirectory &&
-                    !result.endsWith(".md") &&
-                    !result.endsWith(".markdown") &&
-                    !result.endsWith(".markd")) {
-                textInputLayout.setError("文件后缀名必须为：md|markdown|markd");
-                return;
-            }
             if (Check.isEmpty(result)) {
                 textInputLayout.setError("不能为空");
                 return;
