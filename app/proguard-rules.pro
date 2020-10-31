@@ -1,22 +1,3 @@
-# Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in /Users/shenqinci/Library/Android/sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
-
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
-
-#如果项目中用到了webview的复杂操作 ，最好加入
 -keepclassmembers class * extends android.webkit.WebViewClient {
      public void *(android.webkit.WebView,java.lang.String,android.graphics.Bitmap);
      public boolean *(android.webkit.WebView,java.lang.String);
@@ -34,11 +15,6 @@
 -keepclasseswithmembers class * {
     public <init>(android.content.Context, android.util.AttributeSet);
 }
-
-#蒲公英
-#-libraryjars libs/pgyer_sdk_2.2.2.jar
--dontwarn com.pgyersdk.**
--keep class com.pgyersdk.** { *; }
 
 
 #View的构造函数
@@ -91,10 +67,6 @@
     **[] $VALUES;
     public *;
 }
-
-#友盟
--dontwarn com.umeng.analytics.**
--keep class com.umeng.analytics.** { *; }
 
 #LeakCanary内存检测
 -keep class org.eclipse.mat.** { *; }
